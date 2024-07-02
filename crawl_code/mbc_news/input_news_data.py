@@ -1,0 +1,1 @@
+# news_crawling에서 가져온 내용을 datalake에 저장합니다.
