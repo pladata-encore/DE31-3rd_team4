@@ -38,6 +38,6 @@ def crawl(cate_code, startDate, endDate):
                     )
             log(f"KBS main: Sucess create new file './data/kbs_{crawl_time}.csv'", 4)
         else:
-            log(f"KBS main: Crawl passed. Teh number of papers is 0. Parameters: {cate_code}, {startDate}, {endDate}", 4)
+            log(f"KBS main: Crawling passed. Teh number of papers is 0. Parameters: {cate_code}, {startDate}, {endDate}", 4)
     else:
         log(f"KBS main: KBS request Failed. The status code is not 200. Parameters: {cate_code}, {startDate}, {endDate}", 1)
