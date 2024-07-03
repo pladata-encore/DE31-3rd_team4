@@ -6,6 +6,7 @@ import datetime
 from hdfs import InsecureClient
 import io
 import pandas as pd
+import subprocess
 
 # hadoop 연결
 def connect_hadoop():
