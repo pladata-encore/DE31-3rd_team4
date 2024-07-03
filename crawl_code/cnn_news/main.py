@@ -10,7 +10,7 @@ def main():
     
     df = cnn_functions.make_df()
     crawl_time = datetime.now().strftime("%Y-%m-%d_%H%M")
-    new_order = ['institution', 'articleTitle', 'articleContents', 'regDate', 'getDate']
+    new_order = ['institution', 'articleTitle', 'articleContents', 'category', 'regDate', 'getDate']
 
     # 폴더 이름
     folder_name = 'data'

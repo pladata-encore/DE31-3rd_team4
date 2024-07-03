@@ -18,6 +18,11 @@ def make_df():
     # 기사 추가링크 생성
     alist = bs.find_all('a', class_="container__link container__link--type-article container_lead-plus-headlines__link")
     
+    # category
+    category = []
+    for a in alist:
+        category.append(a.get('href').split('/')[-3])
+        
     # 새로운 링크로 크롤링
     new_bs = []
     for x in alist:
@@ -33,7 +38,7 @@ def make_df():
         # title
         titlelist.append(x.find('div', class_="headline__wrapper").text.strip())
     
-        # article
+        # contents
         contentlist = x.find('div', class_="article__content").find_all('p', class_="paragraph inline-placeholder vossi-paragraph-primary-core-light")
         for i, a in enumerate(contentlist):
             contentlist[i] = a.text.strip()
@@ -42,7 +47,7 @@ def make_df():
         # updated
         regDate.append(' '.join(x.find('div', class_='timestamp vossi-timestamp-primary-core-light').text.strip().split()[1:]))
     
-    cnn_news = {"articleTitle": titlelist, "articleContents": articlelist, "regDate": regDate, }
+    cnn_news = {"articleTitle": titlelist, "articleContents": articlelist, "regDate": regDate, "category":category, }
     
     
     # 데이터프레임 생성
