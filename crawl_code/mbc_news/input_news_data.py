@@ -34,6 +34,8 @@ def duplication_check(client, df):
     # 기존 값이 있을 시 중복 체크
     if client.exists(hdfs_path):
         print("yes")
+        command = ["hdfs", "dfs", "-rm", "-r", hdfs_path]
+        subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         # hdfs에서 기존 파일 읽어오기
         # with client.open(hdfs_path) as r:
         #     df_hdfs = pd.read_csv(r)
