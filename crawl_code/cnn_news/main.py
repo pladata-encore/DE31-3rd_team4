@@ -17,7 +17,7 @@ def main():
 
     # 폴더가 없을 경우 생성
     if not os.path.exists(folder_name):
-        os.makedirs("./"+folder_name)
+        os.makedirs(f"./{folder_name}")
 
     df.to_csv(f"./data/cnn_{crawl_time}.csv", 
                         index=False, sep=';', 

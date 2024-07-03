@@ -1,14 +1,14 @@
-apache-airflow-providers-mysql==5.6.2
+#apache-airflow-providers-mysql==5.6.2
 beautifulsoup4==4.12.3
 datetime==5.5
 django-extensions==3.2.3
 ipykernel==6.29.5
 logger==1.4
-mysql-client==0.0.1
+#mysql-client==0.0.1
 pandas==2.2.2
 pip-chill==1.0.3
 pyarrow==16.1.0
-pymysql==1.1.1
+#pymysql==1.1.1
 pyspark==3.5.1
 hdfs==2.7.3
 PyHDFS==0.3.1
