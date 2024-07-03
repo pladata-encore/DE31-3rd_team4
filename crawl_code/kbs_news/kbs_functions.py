@@ -1,5 +1,6 @@
 import requests
 from kbs_news import kbs_payloads
+from kbs_news.utils import log
 
 
 def get_kbsNews_count(cate_code, startDate, endDate):
@@ -9,7 +10,7 @@ def get_kbsNews_count(cate_code, startDate, endDate):
 
     kbs_count_r = requests.post(kbs_payloads.kbs_news_count_url, data=kbs_payloads.payload_kbsCount, headers=kbs_payloads.header_key)
     if kbs_count_r.status_code != 200:
-        print("Fail. The status code is not 200.")
+        log("KBSgetCount: reqeust failed", 1)
         return False
     else:
         return kbs_count_r.json()['data']
@@ -19,7 +20,7 @@ def get_kbsNews(news_count, cate_code, startDate, endDate):
     news_lines = []
 
     if news_count < 1:
-        print("the news is not exist.")
+        #log("KBSgetCount: the news is not exist.", 0)
         return False
     else:
         rows_per_page = news_count
