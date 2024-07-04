@@ -33,10 +33,10 @@ def duplication_check(client, df):
     hdfs_path = f'/P3T5/{hdfs_data}.csv'
     # 기존 값이 있을 시 중복 체크
     if client.exists(hdfs_path):
-        input_hadoop(client, df, hdfs_path)
         #print("yes")
-        #command = ["hdfs", "dfs", "-rm", "-r", hdfs_path]
-        #subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        command = ["hdfs", "dfs", "-rm", "-r", hdfs_path]
+        subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        input_hadoop(client, df, hdfs_path)
         # hdfs에서 기존 파일 읽어오기
         # with client.open(hdfs_path) as r:
         #     df_hdfs = pd.read_csv(r)
