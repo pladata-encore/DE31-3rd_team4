@@ -6,6 +6,7 @@ import datetime
 from hdfs import InsecureClient
 import io
 import pandas as pd
+import subprocess
 
 # hadoop 연결
 def connect_hadoop():
@@ -29,10 +30,13 @@ def input_hadoop(client, df, hdfs_path):
 # 중복 체크 / 파일이 없을 시 hadoop에 밀어넣기
 def duplication_check(client, df):
     hdfs_data = datetime.datetime.now().strftime("%Y%m%d_mbc")
-    hdfs_path = f'/3rd_team5_latest_news/{hdfs_data}.csv'
+    hdfs_path = f'/P3T5/{hdfs_data}.csv'
     # 기존 값이 있을 시 중복 체크
     if client.exists(hdfs_path):
-        print("yes")
+        #print("yes")
+        command = ["hdfs", "dfs", "-rm", "-r", hdfs_path]
+        subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        input_hadoop(client, df, hdfs_path)
         # hdfs에서 기존 파일 읽어오기
         # with client.open(hdfs_path) as r:
         #     df_hdfs = pd.read_csv(r)
