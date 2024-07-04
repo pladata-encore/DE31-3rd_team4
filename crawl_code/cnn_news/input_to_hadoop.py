@@ -1,18 +1,18 @@
-# news_crawling에서 가져온 내용을 datalake에 저장합니다.
-
-import merge_news
 import pyhdfs # hdfs 연결
-import datetime
+from datetime import datetime
 from hdfs import InsecureClient
 import io
 import pandas as pd
 import subprocess
+import cnn_functions
 
+    
 # hadoop 연결
 def connect_hadoop():
     namenode_host = '192.168.0.160'
     namenode_port = 50070
     return pyhdfs.HdfsClient(hosts=f'{namenode_host}:{namenode_port}')
+
 
 # hadoop에 데이터 밀어넣기
 def input_hadoop(client, df, hdfs_path):
@@ -25,12 +25,14 @@ def input_hadoop(client, df, hdfs_path):
     csv_bytes = bytes(csv_data, encoding='utf-8')
     client.create(hdfs_path, csv_bytes, overwrite=True) # hdfs에 저장
     
-    #print(f"DataFrame saved to {hdfs_data}")
+    print(f"DataFrame saved to {hdfs_path}")
+    
+    
 
 # 중복 체크 / 파일이 없을 시 hadoop에 밀어넣기
 def duplication_check(client, df):
-    hdfs_data = datetime.datetime.now().strftime("mbc_%Y-%m-%d_%H%M")
-    hdfs_path = f'/P3T5/{hdfs_data}.csv'
+    hdfs_date = datetime.now().strftime("%Y-%m-%d_%H%M")
+    hdfs_path = f'/P3T5/cnn_{hdfs_date}.csv'
     # 기존 값이 있을 시 중복 체크
     if client.exists(hdfs_path):
         #print("yes")
@@ -52,16 +54,20 @@ def duplication_check(client, df):
     # 기존 값이 없을 시 데이터 밀어넣음
     else:
         input_hadoop(client, df, hdfs_path)
-
-# def main():
-#     # hadoop 연결
-#     client = connect_hadoop()
+        
+        
+def put_data(df):
+        # hadoop 연결
+    client = connect_hadoop()
     
-#     # 하나로 합쳐진 news dataframe 불러오기
-#     df = merge_news.merge_news()
+    # 하나로 합쳐 total_df 생성
+    # total_df = cnn_functions.make_total_df("/home/hadoop/data/")
     
-#     # 뉴스 기사 중복값 체크 
-#     duplication_check(client, df)
+    # 뉴스 기사 중복값 체크 후 hadoop에 put
+    duplication_check(client, df)
     
+    
+                
 # if __name__ == "__main__":
-#     main()
+#     put_data()
+

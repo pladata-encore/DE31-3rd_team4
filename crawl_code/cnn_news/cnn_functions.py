@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup as BS
 import pandas as pd
 from datetime import datetime
-import pandas as pd
+from glob import glob
 
 
 def make_df():
@@ -52,8 +52,30 @@ def make_df():
     
     # 데이터프레임 생성
     cnn_newsdf = pd.DataFrame(cnn_news)
+    cnn_newsdf = cnn_newsdf.drop_duplicates(subset=['articleTitle', 'articleContents']).reset_index(drop=True)
     cnn_newsdf['institution'] = "CNN"
     now = datetime.now().strftime("%Y-%m-%d_%H%M")
     cnn_newsdf['getDate'] = now
     
     return cnn_newsdf
+
+
+# 하나의 데이터프레임으로 생성
+def make_total_df(f_path):
+    # 파일 경로를 지정합니다.
+    # filepath = "/home/hadoop/repository/news_crawling/"
+    filepath = f_path
+    
+    # 파일이 존재하는지 확인합니다.
+    if os.path.exists(filepath):
+        files = glob(filepath+'cnn*.csv')
+        # 데이터프레임으로 변환 후 리스트생성, 하나의 데이터프레임으로 concat
+        dfs = [pd.read_csv(file, sep='|', ) for file in files]
+        df = pd.concat(dfs, ignore_index=True)
+        df = df.drop_duplicates(subset=['articleTitle', 'articleContents']).sort_values(by=['regDate'], ascending=False).reset_index(drop=True)
+        return df
+    else:
+        print('파일이 존재하지 않습니다.')
+        return 0
+    
+

@@ -7,3 +7,4 @@ API_KEYS
 data
 logs
 *.log
+*.json
