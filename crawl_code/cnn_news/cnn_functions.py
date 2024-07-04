@@ -52,6 +52,7 @@ def make_df():
     
     # 데이터프레임 생성
     cnn_newsdf = pd.DataFrame(cnn_news)
+    cnn_newsdf = cnn_newsdf.drop_duplicates(subset=['articleTitle', 'articleContents']).reset_index(drop=True)
     cnn_newsdf['institution'] = "CNN"
     now = datetime.now().strftime("%Y-%m-%d_%H%M")
     cnn_newsdf['getDate'] = now

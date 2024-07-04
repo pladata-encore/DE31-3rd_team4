@@ -16,10 +16,10 @@ def main():
     folder_name = 'data'
 
     # 폴더가 없을 경우 생성
-    if not os.path.exists(folder_name):
-        os.makedirs("./"+folder_name)
+    if not os.path.exists("/home/hadoop/"+folder_name):
+        os.makedirs("/home/hadoop/"+folder_name)
 
-    df.to_csv(f"./data/cnn_{crawl_time}.csv", 
+    df.to_csv(f"/home/hadoop/data/cnn_{crawl_time}.csv", 
                         index=False, sep=';', 
                         header=True, 
                         columns=new_order, 
