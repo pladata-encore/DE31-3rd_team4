@@ -29,7 +29,7 @@ def input_hadoop(client, df, hdfs_path):
 
 # 중복 체크 / 파일이 없을 시 hadoop에 밀어넣기
 def duplication_check(client, df):
-    hdfs_data = datetime.datetime.now().strftime("%Y%m%d_mbc")
+    hdfs_data = datetime.datetime.now().strftime("mbc_%Y-%m-%d_%h%M")
     hdfs_path = f'/P3T5/{hdfs_data}.csv'
     # 기존 값이 있을 시 중복 체크
     if client.exists(hdfs_path):
