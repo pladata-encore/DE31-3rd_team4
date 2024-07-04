@@ -1,6 +1,6 @@
 import requests
 from kbs_news import kbs_payloads
-from kbs_news.utils import log
+from src.utils import log
 
 
 def get_kbsNews_count(cate_code, startDate, endDate):
