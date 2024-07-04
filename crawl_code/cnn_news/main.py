@@ -26,18 +26,9 @@ def main():
                         columns=new_order, 
                         encoding='utf-8'
                     )
-
     
     
-    # hadoop 연결
-    client = input_to_hadoop.connect_hadoop()
-    
-    # 하나로 합쳐 total_df 생성
-    total_df = cnn_functions.make_total_df("/home/hadoop/data/")
-    
-    # 뉴스 기사 중복값 체크 후 hadoop에 put
-    input_to_hadoop.duplication_check(client, total_df)
-                
+    input_to_hadoop.put_data()                    
 
                 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ from hdfs import InsecureClient
 import io
 import pandas as pd
 import subprocess
-
+import cnn_functions
 
     
 # hadoop 연결
@@ -54,3 +54,20 @@ def duplication_check(client, df):
     # 기존 값이 없을 시 데이터 밀어넣음
     else:
         input_hadoop(client, df, hdfs_path)
+        
+        
+def put_data():
+        # hadoop 연결
+    client = connect_hadoop()
+    
+    # 하나로 합쳐 total_df 생성
+    total_df = cnn_functions.make_total_df("/home/hadoop/data/")
+    
+    # 뉴스 기사 중복값 체크 후 hadoop에 put
+    duplication_check(client, total_df)
+    
+    
+                
+# if __name__ == "__main__":
+#     put_data()
+
