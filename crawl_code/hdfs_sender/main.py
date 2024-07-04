@@ -26,6 +26,7 @@ def main():
                      end_prefix=".csv",
                      local_dir=hdfs_info["local_file_dir"])
         
+        log(f"Success transfort csv files to hdfs.", 4)
         return True
         
     except Exception as e:
