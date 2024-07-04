@@ -17,10 +17,11 @@ def main():
     args = parser.parse_args()
     
     try:
-        connect_hdfs(hdfs_info)
+        hdfs_connection = connect_hdfs(hdfs_info)
         upload_csv_files_to_hdfs(start_prefix=args.start_prefix, 
-                                local_directory=hdfs_info["local_file_dir"], 
-                                hdfs_directory=hdfs_info["hdfs_file_dir"])
+                                local_dir=hdfs_info["local_file_dir"], 
+                                hdfs_dir=hdfs_info["hdfs_file_dir"],
+                                hdfs=hdfs_connection)
         remove_files(start_prefix=args.start_prefix,
                      end_prefix=".csv",
                      local_dir=hdfs_info["local_file_dir"])
