@@ -56,15 +56,15 @@ def duplication_check(client, df):
         input_hadoop(client, df, hdfs_path)
         
         
-def put_data():
+def put_data(df):
         # hadoop 연결
     client = connect_hadoop()
     
     # 하나로 합쳐 total_df 생성
-    total_df = cnn_functions.make_total_df("/home/hadoop/data/")
+    # total_df = cnn_functions.make_total_df("/home/hadoop/data/")
     
     # 뉴스 기사 중복값 체크 후 hadoop에 put
-    duplication_check(client, total_df)
+    duplication_check(client, df)
     
     
                 

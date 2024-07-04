@@ -28,7 +28,7 @@ def main():
                     )
     
     
-    input_to_hadoop.put_data()                    
+    input_to_hadoop.put_data(newsdf)                    
 
                 
 if __name__ == "__main__":
