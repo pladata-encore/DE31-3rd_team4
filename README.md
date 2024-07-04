@@ -28,7 +28,7 @@ The Hadoop cluster used within project is pre-built cluster; thus I won't explai
 Try following this [official tutorial](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html) for quick start!
 
 ### 2. Spark
-We combined 2 machines with 16GB RAM and 4 core, 1 machine with 12GB RAM and 4 core to form a Spark Cluster; but I recommend using machines with more RAM for better envoironment and computing power.
+We combined 2 machines with 16GB RAM and 4 core as workers, 1 machine with 12GB RAM and 4 core as master to form a Spark Cluster; but I recommend using machines with more RAM and cores for better envoironment and computing power.
 
 Installation process was rather simple.
 1) Download Spark tar file from [official website](https://dlcdn.apache.org/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz)
