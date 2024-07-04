@@ -61,14 +61,14 @@ def make_df():
 
 
 # 하나의 데이터프레임으로 생성
-def make_total_df():
+def make_total_df(f_path):
     # 파일 경로를 지정합니다.
-    # path = "/home/hadoop/repository/news_crawling/"
-    path = "/home/hadoop/data/"
+    # filepath = "/home/hadoop/repository/news_crawling/"
+    filepath = f_path
     
     # 파일이 존재하는지 확인합니다.
-    if os.path.exists(path):
-        files = glob(path+'cnn*.csv')
+    if os.path.exists(filepath):
+        files = glob(filepath+'cnn*.csv')
         # 데이터프레임으로 변환 후 리스트생성, 하나의 데이터프레임으로 concat
         dfs = [pd.read_csv(file, sep='|', ) for file in files]
         df = pd.concat(dfs, ignore_index=True)
