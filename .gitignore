@@ -1,5 +1,5 @@
 # 불필요한 항목
-.venv
+*venv
 __pycache__
 
 # 보안 문제상 제외 항목
@@ -7,3 +7,4 @@ API_KEYS
 data
 logs
 *.log
+*.json
