@@ -18,7 +18,7 @@ def connect_hadoop():
 def input_hadoop(client, df, hdfs_path):
     # DataFrame을 CSV로 변환하고 메모리에 저장
     csv_buffer = io.StringIO()
-    df.to_csv(csv_buffer, sep=';', index=False)
+    df.to_csv(csv_buffer, sep='|', index=False)
     csv_data = csv_buffer.getvalue()
     
     # CSV 데이터를 바이트로 변환
