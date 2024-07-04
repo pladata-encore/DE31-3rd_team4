@@ -3,14 +3,7 @@ import requests
 from bs4 import BeautifulSoup as BS
 import pandas as pd
 from datetime import datetime
-import pandas as pd
 from glob import glob
-import pyhdfs # hdfs 연결
-import datetime
-from hdfs import InsecureClient
-import io
-import pandas as pd
-import subprocess
 
 
 def make_df():
@@ -77,7 +70,7 @@ def make_total_df():
     if os.path.exists(path):
         files = glob(path+'cnn*.csv')
         # 데이터프레임으로 변환 후 리스트생성, 하나의 데이터프레임으로 concat
-        dfs = [pd.read_csv(file, sep=';', ) for file in files]
+        dfs = [pd.read_csv(file, sep='|', ) for file in files]
         df = pd.concat(dfs, ignore_index=True)
         df = df.drop_duplicates(subset=['articleTitle', 'articleContents']).sort_values(by=['regDate'], ascending=False).reset_index(drop=True)
         return df
