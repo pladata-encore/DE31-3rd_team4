@@ -4,6 +4,13 @@ from bs4 import BeautifulSoup as BS
 import pandas as pd
 from datetime import datetime
 import pandas as pd
+from glob import glob
+import pyhdfs # hdfs 연결
+import datetime
+from hdfs import InsecureClient
+import io
+import pandas as pd
+import subprocess
 
 
 def make_df():
@@ -58,3 +65,24 @@ def make_df():
     cnn_newsdf['getDate'] = now
     
     return cnn_newsdf
+
+
+# 하나의 데이터프레임으로 생성
+def make_total_df():
+    # 파일 경로를 지정합니다.
+    # path = "/home/hadoop/repository/news_crawling/"
+    path = "/home/hadoop/data/"
+    
+    # 파일이 존재하는지 확인합니다.
+    if os.path.exists(path):
+        files = glob(path+'cnn*.csv')
+        # 데이터프레임으로 변환 후 리스트생성, 하나의 데이터프레임으로 concat
+        dfs = [pd.read_csv(file, sep=';', ) for file in files]
+        df = pd.concat(dfs, ignore_index=True)
+        df = df.drop_duplicates(subset=['articleTitle', 'articleContents']).sort_values(by=['regDate'], ascending=False).reset_index(drop=True)
+        return df
+    else:
+        print('파일이 존재하지 않습니다.')
+        return 0
+    
+

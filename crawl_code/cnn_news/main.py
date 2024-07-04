@@ -20,7 +20,7 @@ def main():
         os.makedirs("/home/hadoop/"+folder_name)
 
     df.to_csv(f"/home/hadoop/data/cnn_{crawl_time}.csv", 
-                        index=False, sep=';', 
+                        index=False, sep='|', 
                         header=True, 
                         columns=new_order, 
                         encoding='utf-8'
