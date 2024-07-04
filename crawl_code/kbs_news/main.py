@@ -41,7 +41,7 @@ def main():
             df['getDate'] = current_time.strftime("%Y-%m-%d %H:%M:%s")
             new_order = ['institution', 'articleTitle', 'articleContents', 'category', 'regDate', 'getDate']
             df.to_csv(f"./data/kbs_{crawl_time}.csv", 
-                        index=False, sep=';', 
+                        index=False, sep='|', 
                         header=True, 
                         columns=new_order, 
                         encoding='utf-8'
