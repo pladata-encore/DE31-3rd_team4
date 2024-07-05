@@ -15,6 +15,9 @@ def get_kbsNews_count(cate_code, startDate, endDate):
     else:
         return kbs_count_r.json()['data']
 
+def preprocess(_str):
+    return ' '.join(_str.replace("\n", " ").replace("\t", " ").replace("/", "").split(" "))
+
 
 def get_kbsNews(news_count, cate_code, startDate, endDate):
     news_lines = []
@@ -33,12 +36,13 @@ def get_kbsNews(news_count, cate_code, startDate, endDate):
             kbs_news_r = requests.get(kbs_payloads.kbs_news_get_url.format(curr_page, rows_per_page, startDate, endDate, kbs_payloads.cate_list[cate_code]), 
                                       headers=kbs_payloads.header_key)
             for news_context in kbs_news_r.json()['data']:
-                tmp_dict = {}
-                tmp_dict['regDate'] = news_context['regDate']
-                tmp_dict['articleTitle'] = news_context['originNewsTitle']
-                tmp_dict['articleContents'] = news_context['originNewsContents']
-                tmp_dict['category'] = news_context['contentsName']
+                if news_context['originNewsTitle'] is not None:
+                    tmp_dict = {}
+                    tmp_dict['regDate'] = news_context['regDate']
+                    tmp_dict['articleTitle'] = preprocess(news_context['originNewsTitle'])
+                    tmp_dict['articleContents'] = preprocess(news_context['originNewsContents'])
+                    tmp_dict['category'] = news_context['contentsName']
 
-                news_lines.append(tmp_dict)
+                    news_lines.append(tmp_dict)
     
     return news_lines
