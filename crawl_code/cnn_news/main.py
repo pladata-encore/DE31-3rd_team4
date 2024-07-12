@@ -47,6 +47,7 @@ def main():
 
     except Exception as e:
         logging.error(f"[{now}] > {e}", exc_info=True)
+        print("check ./logs/cnn_issue.log")
                     
 if __name__ == "__main__":
     main()
